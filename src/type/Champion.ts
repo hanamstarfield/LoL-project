@@ -15,4 +15,10 @@ export type Champion = {
     full: string;
   };
   tags: string[];
+  info: {
+    attack: number;
+    defense: number;
+    magic: number;
+    difficulty: number;
+  };
 };

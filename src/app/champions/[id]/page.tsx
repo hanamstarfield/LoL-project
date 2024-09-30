@@ -1,3 +1,6 @@
+const CHAMPION_DETAIL_API = (version: string, id: string) =>
+  `https://ddragon.leagueoflegends.com/cdn/${version}/data/ko_KR/champion/${id}.json`;
+
 type Props = {
   params: {
     id: string;
