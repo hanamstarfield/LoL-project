@@ -1,5 +1,7 @@
 export type ChampDetailData = {
-  data: Record<string, ChampDetail>;
+  data: {
+    [key: string]: ChampDetail;
+  };
 };
 
 export type ChampDetail = {

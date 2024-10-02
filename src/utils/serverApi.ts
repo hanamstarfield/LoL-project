@@ -1,6 +1,6 @@
 "use server";
 import { ChampionData } from "@/type/Champion";
-import { ChampDetailData } from "@/type/ChampionDetail";
+import { ChampDetail, ChampDetailData } from "@/type/ChampionDetail";
 import { Items } from "@/type/Item";
 
 const VERSIONS_API = "https://ddragon.leagueoflegends.com/api/versions.json";
@@ -19,7 +19,7 @@ const getVersion = async (): Promise<string> => {
 };
 
 // 챔피언 목록 api
-export const getChampion = async () => {
+export const getChampion = async (): Promise<ChampionData> => {
   try {
     const version = await getVersion();
     const champions = await fetch(CHAMPIONS_API(version), {
@@ -47,15 +47,20 @@ export const getItem = async () => {
 };
 
 // 챔피언 디테일 api
-export const getCampDetail = async (id: string) => {
+export const getCampDetail = async (
+  id: string
+): Promise<ChampDetail | null> => {
   try {
     const version = await getVersion();
     const campDetailRes = await fetch(CHAMPIONS_DETAIL_API(version, id), {
       cache: "no-store",
     });
-    const campDetailData: ChampDetailData = await campDetailRes.json();
-    return campDetailData.data[id];
+    const campDetailData = await campDetailRes.json();
+
+    // champDetailData.data[id]가 undefined인 경우 null을 반환
+    return campDetailData.data[id] || null;
   } catch (error) {
     console.error("디테일 api 에러", error);
+    return null; // 에러 발생 시 null 반환
   }
 };

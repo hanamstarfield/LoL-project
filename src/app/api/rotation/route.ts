@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     }
   );
   if (!res.ok) {
-    throw new Error("로테이션 api 에러");
+    throw new Error("로테이션 api 에러!!!");
   }
 
   const data = await res.json();
