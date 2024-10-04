@@ -16,8 +16,6 @@ const ChampionsPage = async () => {
   // championsData가 객체 형태이므로 Object.values()를 사용하여 배열로 변환
   const championArray: Champion[] = Object.values(championsData.data);
 
-  const version: string = championsData.version;
-
   return (
     <div className="flex flex-col items-center p-4 min-h-screen ">
       <h1 className="text-3xl font-bold mb-6">챔피언 목록</h1>

@@ -1,7 +1,7 @@
 "use server";
 import { ChampionData } from "@/type/Champion";
-import { ChampDetail, ChampDetailData } from "@/type/ChampionDetail";
-import { Items } from "@/type/Item";
+import { ChampDetailData } from "@/type/ChampionDetail";
+import { ItemsData } from "@/type/Item";
 
 const VERSIONS_API = "https://ddragon.leagueoflegends.com/api/versions.json";
 const CHAMPIONS_API = (version: string) =>
@@ -32,37 +32,36 @@ export const getChampion = async (): Promise<
     return { message: "챔피언 api 데이터 에러!" };
   }
 
-  const championsData = await res.json();
+  const championsData: ChampionData = await res.json();
   return championsData;
 };
 
 // 아이템 목록 api
-export const getItem = async () => {
-  try {
-    const version = await getVersion();
-    const items = await fetch(ITEM_API(version));
-    const itemsData: Items = await items.json();
-    return itemsData;
-  } catch (error) {
-    console.error("아이템 api 에러", error);
+export const getItem = async (): Promise<ItemsData | { message: string }> => {
+  const version = await getVersion();
+  const res = await fetch(ITEM_API(version));
+  if (!res.ok) {
+    return { message: "챔피언 api 데이터 에러!" };
   }
+  const itemsData: ItemsData = await res.json();
+  return itemsData;
 };
 
 // 챔피언 디테일 api
 export const getCampDetail = async (
   id: string
-): Promise<ChampDetail | null> => {
-  try {
-    const version = await getVersion();
-    const campDetailRes = await fetch(CHAMPIONS_DETAIL_API(version, id), {
-      cache: "no-store",
-    });
-    const campDetailData = await campDetailRes.json();
-
-    // champDetailData.data[id]가 undefined인 경우 null을 반환
-    return campDetailData.data[id] || null;
-  } catch (error) {
-    console.error("디테일 api 에러", error);
-    return null; // 에러 발생 시 null 반환
+): Promise<ChampDetailData | { message: string }> => {
+  const version = await getVersion();
+  const res = await fetch(CHAMPIONS_DETAIL_API(version, id), {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    return { message: "챔피언 api 데이터 에러!" };
   }
+
+  const campDetailData = await res.json();
+  const test = campDetailData.data[id];
+
+  console.log(test);
+  return test;
 };

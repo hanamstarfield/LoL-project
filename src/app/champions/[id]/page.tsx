@@ -13,6 +13,13 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const id = params.id;
   const champDetail = await getCampDetail(id);
+
+  if ("message" in champDetail) {
+    return {
+      title: "챔피언을 찾을 수 없습니다.",
+    };
+  }
+
   return {
     title: champDetail.name,
   };
@@ -20,6 +27,10 @@ export const generateMetadata = async ({
 
 const DetailPage = async ({ params }: Props) => {
   const champDetail = await getCampDetail(params.id);
+
+  if ("message" in champDetail || !champDetail) {
+    return <div>챔피언 데이터를 찾을 수 없습니다.</div>;
+  }
 
   return (
     <div>
