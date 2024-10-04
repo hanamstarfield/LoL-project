@@ -19,19 +19,21 @@ const getVersion = async (): Promise<string> => {
 };
 
 // 챔피언 목록 api
-export const getChampion = async (): Promise<ChampionData> => {
-  try {
-    const version = await getVersion();
-    const champions = await fetch(CHAMPIONS_API(version), {
-      next: {
-        revalidate: 86400,
-      },
-    });
-    const championsData: ChampionData = await champions.json();
-    return championsData;
-  } catch (error) {
-    console.error("챔피언 api 에러: ", error);
+export const getChampion = async (): Promise<
+  ChampionData | { message: string }
+> => {
+  const version = await getVersion();
+  const res = await fetch(CHAMPIONS_API(version), {
+    next: {
+      revalidate: 86400,
+    },
+  });
+  if (!res.ok) {
+    return { message: "챔피언 api 데이터 에러!" };
   }
+
+  const championsData: ChampionData = await res.json();
+  return championsData;
 };
 
 // 아이템 목록 api
