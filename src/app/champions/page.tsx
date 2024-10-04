@@ -1,4 +1,4 @@
-import { Champion } from "@/type/Champion";
+import { Champion, ChampionData } from "@/type/Champion";
 import { getChampion } from "@/utils/serverApi";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,27 +6,40 @@ import Link from "next/link";
 const ChampionsPage = async () => {
   const championsData = await getChampion();
 
+  if ("message" in championsData) {
+    return <div>{championsData.message}</div>;
+  }
+
+  if (!championsData.data) {
+    return <div>챔피언 데이터가 없습니다.</div>;
+  }
   // championsData가 객체 형태이므로 Object.values()를 사용하여 배열로 변환
-  const championArray = Object.values(championsData.data);
-  const version: Champion = championsData.version;
+  const championArray: Champion[] = Object.values(championsData.data);
+
+  const version: string = championsData.version;
 
   return (
-    <div>
-      <h1>챔피언 목록</h1>
-      {championArray.map((champ) => {
-        return (
-          <Link href={`/champions/${champ.id}`} key={champ.id}>
+    <div className="flex flex-col items-center p-4 min-h-screen ">
+      <h1 className="text-3xl font-bold mb-6">챔피언 목록</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-6xl">
+        {championArray.map((champ) => (
+          <Link
+            href={`/champions/${champ.id}`}
+            key={champ.id}
+            className="border border-gray-300 p-4 rounded-lg text-center bg-white hover:bg-gray-50 shadow-md hover:shadow-lg transition-shadow"
+          >
             <Image
-              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+              src={`https://ddragon.leagueoflegends.com/cdn/${champ.version}/img/champion/${champ.image.full}`}
               alt={champ.name}
               width={100}
               height={100}
+              className="mx-auto mb-2 rounded"
             />
-            <p>{champ.name}</p>
-            <p>{champ.title}</p>
+            <p className="font-bold text-lg">{champ.name}</p>
+            <p className="text-gray-500">{champ.title}</p>
           </Link>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 };

@@ -32,7 +32,7 @@ export const getChampion = async (): Promise<
     return { message: "챔피언 api 데이터 에러!" };
   }
 
-  const championsData: ChampionData = await res.json();
+  const championsData = await res.json();
   return championsData;
 };
 

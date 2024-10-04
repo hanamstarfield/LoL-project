@@ -1,4 +1,5 @@
 export type ChampionData = {
+  version: string;
   data: {
     [key: string]: Champion;
   };
@@ -7,7 +8,7 @@ export type ChampionData = {
 export type Champion = {
   version: string;
   id: string;
-  key: number;
+  key: string;
   name: string;
   title: string;
   blurb: string;
