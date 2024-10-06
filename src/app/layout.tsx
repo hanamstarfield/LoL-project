@@ -29,11 +29,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="flex gap-10">
-          <Link href={"/"}>홈</Link>
-          <Link href={"/champions"}>챔피언 목록</Link>
-          <Link href={"/items"}>아이템 목록</Link>
-          <Link href={"/rotation"}>챔피언 로테이션</Link>
+        <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
+          <nav className="flex gap-10">
+            <Link href="/" className="hover:text-gray-300 transition">
+              홈
+            </Link>
+            <Link href="/champions" className="hover:text-gray-300 transition">
+              챔피언 목록
+            </Link>
+            <Link href="/items" className="hover:text-gray-300 transition">
+              아이템 목록
+            </Link>
+            <Link href="/rotation" className="hover:text-gray-300 transition">
+              챔피언 로테이션
+            </Link>
+          </nav>
         </header>
         {children}
       </body>

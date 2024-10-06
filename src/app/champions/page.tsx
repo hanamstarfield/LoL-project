@@ -1,4 +1,4 @@
-import { Champion, ChampionData } from "@/type/Champion";
+import { Champion } from "@/type/Champion";
 import { getChampion } from "@/utils/serverApi";
 import Image from "next/image";
 import Link from "next/link";

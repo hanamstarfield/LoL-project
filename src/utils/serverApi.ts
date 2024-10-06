@@ -1,6 +1,6 @@
 "use server";
 import { ChampionData } from "@/type/Champion";
-import { ChampDetailData } from "@/type/ChampionDetail";
+import { ChampDetail, ChampDetailData } from "@/type/ChampionDetail";
 import { ItemsData } from "@/type/Item";
 
 const VERSIONS_API = "https://ddragon.leagueoflegends.com/api/versions.json";
@@ -50,18 +50,17 @@ export const getItem = async (): Promise<ItemsData | { message: string }> => {
 // 챔피언 디테일 api
 export const getCampDetail = async (
   id: string
-): Promise<ChampDetailData | { message: string }> => {
+): Promise<ChampDetail | { message: string }> => {
   const version = await getVersion();
   const res = await fetch(CHAMPIONS_DETAIL_API(version, id), {
     cache: "no-store",
   });
   if (!res.ok) {
-    return { message: "챔피언 api 데이터 에러!" };
+    return { message: "챔피언 디테일 api 데이터 에러!" };
   }
 
-  const campDetailData = await res.json();
-  const test = campDetailData.data[id];
+  const campDetailData: ChampDetailData = await res.json();
+  const champDetail = campDetailData.data[id];
 
-  console.log(test);
-  return test;
+  return champDetail;
 };
