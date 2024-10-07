@@ -1,6 +1,6 @@
 const API_KEY = process.env.RIOT_API_KEY as string;
 
-export async function GET(request: Request) {
+export async function GET() {
   const res = await fetch(
     `https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}`,
     {
