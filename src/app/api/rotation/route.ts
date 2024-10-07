@@ -1,3 +1,5 @@
+import { Rotation } from "@/type/ChampionRotation";
+
 const API_KEY = process.env.RIOT_API_KEY as string;
 
 export async function GET() {
@@ -14,6 +16,6 @@ export async function GET() {
     throw new Error("로테이션 api 에러!!!");
   }
 
-  const data = await res.json();
+  const data: Rotation = await res.json();
   return Response.json({ data });
 }

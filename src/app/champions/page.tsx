@@ -8,13 +8,11 @@ import Loading from "../loading";
 const ChampionsPage = async () => {
   const championsData = await getChampion();
 
+  // API 호출 실패 에러 메세지 처리
   if ("message" in championsData) {
     return <div>{championsData.message}</div>;
   }
 
-  if (!championsData.data) {
-    return <div>챔피언 데이터가 없습니다.</div>;
-  }
   // championsData가 객체 형태이므로 Object.values()를 사용하여 배열로 변환
   const championArray: Champion[] = Object.values(championsData.data);
 

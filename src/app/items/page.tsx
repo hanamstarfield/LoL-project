@@ -11,10 +11,6 @@ const ItemPage = async () => {
     return <div>{items.message}</div>;
   }
 
-  if (!items.data) {
-    return <div>아이템 데이터가 없습니다.</div>;
-  }
-
   const itemsArray: Items[] = Object.values(items.data);
   return (
     <div className="flex flex-col items-center p-4 min-h-screen">

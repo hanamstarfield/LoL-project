@@ -41,7 +41,7 @@ export const getItem = async (): Promise<ItemsData | { message: string }> => {
   const version = await getVersion();
   const res = await fetch(ITEM_API(version));
   if (!res.ok) {
-    return { message: "챔피언 api 데이터 에러!" };
+    return { message: "아이템 api 데이터 에러!" };
   }
   const itemsData: ItemsData = await res.json();
   return itemsData;

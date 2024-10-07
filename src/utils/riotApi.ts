@@ -1,14 +1,13 @@
+import { Rotation } from "@/type/ChampionRotation";
 import { getChampion } from "./serverApi";
 
 export const getChampionRotation = async () => {
   try {
-    const rotationRes = await fetch("/api/rotation", {
-      method: "GET",
-    });
+    const rotationRes = await fetch("/api/rotation");
     if (!rotationRes.ok) {
       throw new Error("로테이션 데이터를 가져오지 못했습니다!");
     }
-    const rotationData = await rotationRes.json();
+    const rotationData: Rotation = await rotationRes.json();
 
     const championsData = await getChampion();
 

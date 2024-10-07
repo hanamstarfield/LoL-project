@@ -29,7 +29,7 @@ const DetailPage = async ({ params }: Props) => {
   const champDetail = await getCampDetail(params.id);
 
   if ("message" in champDetail) {
-    return <div>챔피언 디테일 데이터를 찾을 수 없습니다!!.</div>;
+    return <div>{champDetail.message}</div>;
   }
 
   return (
