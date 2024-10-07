@@ -14,7 +14,7 @@ const CHAMPIONS_DETAIL_API = (version: string, id: string) =>
 // 최신 버전 가져오기
 const getVersion = async (): Promise<string> => {
   const versionRes = await fetch(VERSIONS_API);
-  const version = await versionRes.json();
+  const version: string = await versionRes.json();
   return version[0];
 };
 
