@@ -17,8 +17,8 @@ const ItemPage = async () => {
 
   const itemsArray: Items[] = Object.values(items.data);
   return (
-    <div className="flex flex-col items-center min-h-screen py-10">
-      <h1 className="text-4xl font-bold mb-10">아이템 목록</h1>
+    <div className="flex flex-col items-center p-4 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">아이템 목록</h1>
       <Suspense fallback={<Loading />}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-6xl">
           {itemsArray.map((item) => {
@@ -32,7 +32,7 @@ const ItemPage = async () => {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className="mx-auto mb-2"
+                  className="mx-auto mb-2 rounded"
                 />
                 <p className="font-bold text-lg">{item.name}</p>
                 <p className="text-gray-500">{item.plaintext}</p>
